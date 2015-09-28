@@ -963,7 +963,7 @@ sign of user input, so as not to hang the interface."
       (-when-let* ((ex (nrepl-dict-get response "ex"))
                    (err (nrepl-dict-get response "err")))
         (cider-repl-emit-interactive-err-output err)
-        (message err))
+        (message "%s" err))
       (-when-let (id (nrepl-dict-get response "id"))
         ;; FIXME: This should go away eventually when we get rid of
         ;; pending-request hash table
@@ -1089,7 +1089,7 @@ Return a newly created process."
       (insert output)))
   (when (string-match "nREPL server started on port \\([0-9]+\\)" output)
     (let ((port (string-to-number (match-string 1 output))))
-      (message (format "nREPL server started on %s" port))
+      (message "nREPL server started on %s" port)
       (with-current-buffer (process-buffer process)
         (let ((client-proc (nrepl-start-client-process nil port process)))
           ;; FIXME: Bad connection tracking system. There can be multiple client
